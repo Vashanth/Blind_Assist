@@ -46,11 +46,15 @@ async function app() {
         let newresult = await net.classify(canvas);
 
         let probClassify = newresult[0].probability.toFixed(3)
-        
-        document.getElementById('text').innerText = `
+
+        document.getElementById('text1').innerText = `
         prediction: ${classes[result.label]}\n
-        probability: ${result.confidences[result.label]}
-        prediction: ${newresult[0].className}\n
+        `
+
+        document.getElementById('text2name').innerText=`
+        prediction: ${newresult[0].className}\n`
+
+        document.getElementById('text2prob').innerText=`
         probability: ${probClassify}
         `;
       }
