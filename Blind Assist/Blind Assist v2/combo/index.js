@@ -2,61 +2,32 @@ const webcamElement = document.getElementById('webcam');
 let net;
 const classifier = knnClassifier.create();
 
-// async function app() {
-//   console.log('Loading mobilenet..');
-
-//   // Load the model.
-//   net = await mobilenet.load();
-//   console.log('Successfully loaded model');
-
-//   // Make a prediction through the model on our image.
-//   const imgEl = document.getElementById('img');
-//   const result = await net.classify(imgEl);
-//   console.log(result);
-// }
-
-// async function app() {
-//     console.log('Loading mobilenet..');
-  
-//     // Load the model.
-//     net = await mobilenet.load();
-//     console.log('Successfully loaded model');
-    
-//     // Create an object from Tensorflow.js data API which could capture image 
-//     // from the web camera as Tensor.
-//     const webcam = await tf.data.webcam(webcamElement);
-//     while (true) {
-//       const img = await webcam.capture();
-//       const result = await net.classify(img);
-  
-//       document.getElementById('console').innerText = `
-//         prediction: ${result[0].className}\n
-//         probability: ${result[0].probability}
-//       `;
-//       // Dispose the tensor to release the memory.
-//       img.dispose();
-  
-//       // Give some breathing room by waiting for the next animation frame to
-//       // fire.
-//       await tf.nextFrame();
-//     }
-//   }
-
 async function app() {
+  net = await mobilenet.load();
+  const video = document.getElementById('video')
+  const canvas = document.getElementById('canvas')
+  const context = canvas.getContext('2d')
+
+  const stream = await navigator.mediaDevices.getUserMedia({
+      audio:false,
+      video: {
+          facingMode : 'environment'
+      }
+  })
+
+  video.srcObject = stream
+
     console.log('Loading mobilenet..');
 
-    net = await mobilenet.load();
     console.log('Successfully loaded model');
 
-    const webcam = await tf.data.webcam(webcamElement);
-
     const addExample = async classId => {
-      const img = await webcam.capture();
-      const activation = net.infer(img, true);
+      //const img = await webcam.capture();
+      context.drawImage(video,0,0,500,500)
+      const activation = net.infer(canvas, true);
   
       classifier.addExample(activation, classId);
   
-      img.dispose();
     };
   
     document.getElementById('class-a').addEventListener('click', () => addExample(0));
@@ -65,24 +36,23 @@ async function app() {
   
     while (true) {
       if (classifier.getNumClasses() > 0) {
-        const img = await webcam.capture();
-
-        const activation = net.infer(img, 'conv_preds');
+        //const img = await webcam.capture();
+        context.drawImage(video,0,0,500,500)
+        const activation = net.infer(canvas, 'conv_preds');
         const result = await classifier.predictClass(activation);
         
         const classes = ['A', 'B', 'C'];
 
-        let newresult = await net.classify(img);
-        console.log(newresult[0])
+        let newresult = await net.classify(canvas);
 
-
+        let probClassify = newresult[0].probability.toFixed(3)
+        
         document.getElementById('text').innerText = `
         prediction: ${classes[result.label]}\n
         probability: ${result.confidences[result.label]}
         prediction: ${newresult[0].className}\n
-        probability: ${newresult[0].probability}
+        probability: ${probClassify}
         `;
-        img.dispose();
       }
   
       await tf.nextFrame()
@@ -91,3 +61,24 @@ async function app() {
   }
 
 app();
+
+if ("serviceWorker" in navigator) {
+  // register service worker
+  navigator.serviceWorker.register("service-worker.js");
+}
+
+window.addEventListener('load', e => {
+  registerSW(); 
+});
+
+async function registerSW() { 
+  if ('serviceWorker' in navigator) { 
+    try {
+      await navigator.serviceWorker.register('./sw.js'); 
+    } catch (e) {
+      alert('ServiceWorker registration failed. Sorry about that.'); 
+    }
+  } else {
+    document.querySelector('.alert').removeAttribute('hidden'); 
+  }
+}

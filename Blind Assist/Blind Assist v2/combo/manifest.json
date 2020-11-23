@@ -1,0 +1,21 @@
+{
+    "name": "Blind Assist v2",
+    "short_name": "BA",
+    "start_url": "index.html",
+    "scope": "./",
+    "icons": [
+      {
+        "src": "BA.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "BA.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#ffd31d",
+    "background_color": "#333",
+    "display": "standalone"
+  }
