@@ -46,8 +46,8 @@ To set up the React Native App environment we have to:
  * Each button tag should have a unique id
  * We can give a custom id or use the uuid library to assign each button a unique id
  * Now we have to add js functionality to the buttons such that if we press a button it takes a snap for that respective class
- * We have to add event listeners for all the buttons, we can do this manually or loop through y reusing the code and reducing redundancy
- * The event listeners have to be triggered On click of the button
+ * We have to add event listeners for all the buttons, we can do this manually or loop through reusing the code and reducing redundancy
+ * The event listeners can be triggered On click of the button
  * The trigger will call addExample function which takes the button id as a parameter which we had assigned in the front end
  * This addExample function is reusable, one function for all buttons
  * The classifier will predict a number between 0 to n-1 and we have to map it to the corresponding class
