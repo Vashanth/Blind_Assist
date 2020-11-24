@@ -42,7 +42,7 @@ To set up the React Native App environment we have to:
  PWA to APK converter : [Link](https://appmaker.xyz/pwa-to-apk/)  
  
  To add more classes for transfer learning:
- * We have to n button html tags assuming we want n classes
+ * We have to add n button html tags assuming we want n classes
  * Each button tag should have a unique id
  * We can give a custom id or use the uuid library to assign each button a unique id
  * Now we have to add js functionality to the buttons such that if we press a button it takes a snap for that respective class
