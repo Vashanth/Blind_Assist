@@ -56,9 +56,7 @@ async function app() {
         const result = await classifier.predictClass(activation);
         
         const classes = ['A', 'B', 'C'];
-
-        var sayTimeout = null;
-                      
+                        
         let newresult = await net.classify(canvas);
 
         let probClassify = newresult[0].probability.toFixed(3)
