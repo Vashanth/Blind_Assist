@@ -13,5 +13,6 @@ To set up the React Native App environment we have to:
 * At first it will ask for a RSA configuration key acceptance, we have to allow in phone to start working
 * To run the app in phone : we have to type 'react-native run-android' in cmd 
 * This will open a node cmd where we can see the debugging screen and at first the process will be slow to install in phone, but later versions will install quicker  
-[Reference Link](https://reactnative.dev/docs/environment-setup)
+ React-Native docs : [Reference Link](https://reactnative.dev/docs/environment-setup)
+
 
