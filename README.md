@@ -20,6 +20,9 @@ To set up the React Native App environment we have to:
  In this version we have concentrated on transfer learning where we have retrained the mobilenet model to accomodate 3 classes. We have added 3 buttons to add 3 classes A,B and C respectively, we can target an object and take snapshots for corresponding classes by pressing the respective buttons, if we take 10-15 snaps of an object then it will start predicting class A,B and C correctly. In addition to predicting the 3 classes it parallely predicts the mobilenet pretrained classification and displays that in addition to this.  
    
  As this approach had to take snaps and deal with Document Object Model(DOM) in js, we had to make a website with js and html, then convert it into Progressive Web app(PWA) and convert the PWA to APK. We did not use React Native because it can't deal with DOM elements.
+ 
+ The Deployed link of PWA : [Link](https://blind-assist.web.app/)  
+ We can Add to Home Screen and it will get installed as an app too.
 
 
 
