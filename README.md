@@ -41,6 +41,22 @@ To set up the React Native App environment we have to:
  
  PWA to APK converter : [Link](https://appmaker.xyz/pwa-to-apk/)  
  
+ To add more classes for transfer learning:
+ * We have to n button html tags assuming we want n classes
+ * Each button tag should have a unique id
+ * We can give a custom id or use the uuid library to assign each button a unique id
+ * Now we have to add js functionality to the buttons such that if we press a button it takes a snap for that respective class
+ * We have to add event listeners for all the buttons, we can do this manually or loop through y reusing the code and reducing redundancy
+ * The event listeners have to be triggered On click of the button
+ * The trigger will call addExample function which takes the button id as a parameter which we had assigned in the front end
+ * This addExample function is reusable, one function for all buttons
+ * The classifier will predict a number between 0 to n-1 and we have to map it to the corresponding class
+ * We can have a map or an array with the mappings of the predicted index to value
+ * We can display the value of the predicted index and also pass it to the TTS module
+ 
+ One issue with TTS module - speechSynthesis of js is it has a queue of what has to be uttered. The tf awaitframe calls the next frame in 16ms, so in a second it can accumulate 62 class names into the queue, so it was not uttering the latest class. Let us say i showed it class A in 1st second and class B in 2nd second, the model will utter B only after 62 times speaking 'Class A'.  The solution we came up with is, we introduced a deloy of 700ms into the system before calling the next frame, so by this totally 716ms was the time it called the next frame, so the queue was much shorter than before and it holded upto recentness of the image shown. But, increasing the delay greater than 700ms caused a scenario where it seemed like the page was lagging, but it was waiting the delay amount of time between predictions or taking snapshots. So one precaution we have to take while integrating TTS module is we have to find an optimum delay to wait before calling next frame. 
+ 
+ 
 
 
 
