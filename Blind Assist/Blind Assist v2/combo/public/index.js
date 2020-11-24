@@ -2,6 +2,20 @@ const webcamElement = document.getElementById('webcam');
 let net;
 const classifier = knnClassifier.create();
 
+const speakFun = (arg) => {
+  var message = new SpeechSynthesisUtterance("class "+arg);
+  message.lang = "en-US";
+  speechSynthesis.speak(message);   
+}
+
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
+ }
+}
+
 async function app() {
   net = await mobilenet.load();
   const video = document.getElementById('video')
@@ -43,10 +57,14 @@ async function app() {
         
         const classes = ['A', 'B', 'C'];
 
+        var sayTimeout = null;
+                      
         let newresult = await net.classify(canvas);
 
         let probClassify = newresult[0].probability.toFixed(3)
 
+        speakFun(classes[result.label])
+        
         document.getElementById('text1').innerText = `
         prediction: ${classes[result.label]}\n
         `
@@ -58,8 +76,9 @@ async function app() {
         probability: ${probClassify}
         `;
       }
-  
       await tf.nextFrame()
+      wait(700)
+      speechSynthesis.cancel() 
     }
 
   }
