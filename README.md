@@ -34,7 +34,9 @@ To set up the React Native App environment we have to:
  * To check whether cached content is served to the app, we have to go offline or opt for offline option in Application tab of Developer Tools
  To convert website to PWA : [Reference Link](https://vaadin.com/learn/tutorials/learn-pwa/turn-website-into-a-pwa) 
  
- The Deployed link of PWA : [Link](https://blind-assist.web.app/)  
+ The Deployed link of PWA : https://blind-assist.web.app/ (or) https://blind-assist.firebaseapp.com
+ 
+ 
  We can Add to Home Screen and it will get installed as an app too.  
  
  PWA to APK converter : [Link](https://appmaker.xyz/pwa-to-apk/)  
