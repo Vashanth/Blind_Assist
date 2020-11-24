@@ -21,6 +21,17 @@ To set up the React Native App environment we have to:
    
  As this approach had to take snaps and deal with Document Object Model(DOM) in js, we had to make a website with js and html, then convert it into Progressive Web app(PWA) and convert the PWA to APK. We did not use React Native because it can't deal with DOM elements.
  
+ To convert the website to PWA:
+ * We have to add manifest.json file with main details about the app like app name and icon for the app and link it in html page
+ * Next, we have to register a service worker
+ * We’re using an async function for registering the ServiceWorker for easier to read code.
+ * Ensure that the browser supports ServiceWorker before trying to register one.
+ * Register the ServiceWorker with navigator.serviceWorker.register.
+ * We can check these steps by opting for update on reload in Application tab in Developer tools
+ * We can cache and serve static assets
+ * To check whether cached content is served to the app, we have to go offline or opt for offline option in Application tab of Developer Tools
+ 
+ 
  The Deployed link of PWA : [Link](https://blind-assist.web.app/)  
  We can Add to Home Screen and it will get installed as an app too.  
  
