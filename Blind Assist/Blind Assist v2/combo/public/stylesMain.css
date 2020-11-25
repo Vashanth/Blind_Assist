@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+    touch-action: manipulation;
+  }
+
+  .contain
+  {
+      padding: 100px;
+      background-color: tomato;
+  }
+  
+  .wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button {
+    margin: 40px;
+    width: 200px;
+    height: 105px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    color: #000;
+    background-color: rgb(250, 223, 223);
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    }
+  
+  .button:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(55, 228, 159, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  input[type="number"],input[type="text"]
+  {
+      border-radius: 20px;
+      border-style: inset;
+      border-width: 10px;
+      font-size: 30px;
+      width: 200px;
+      height: 100px;
+      border-color: rgb(143, 128, 128);
+  }
+
+  h1
+  {
+      font-size:50px
+  }

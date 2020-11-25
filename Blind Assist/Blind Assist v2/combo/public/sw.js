@@ -11,7 +11,11 @@ const staticAssets = [
   './',
   './index.html',
   './index.js',
-  './styles.css'
+  './styles.css',
+  './model.html',
+  './inter.js',
+  './stylesMain.css',
+  './inter.html'
 ];
 
 self.addEventListener('install', async event => {
