@@ -75,19 +75,19 @@ async function app() {
         let newresult = await net.classify(canvas);
 
         let probClassify = newresult[0].probability.toFixed(3)
-
+        console.log(newresult[0])
         speakFun(classes[result.label])
         
         document.getElementById('text1').innerText = `
         prediction: ${classes[result.label]}\n
         `
 
-        document.getElementById('text2name').innerText=`
-        prediction: ${newresult[0].className}\n`
+        // document.getElementById('text2name').innerText=`
+        // prediction: ${newresult[0].className}\n`
 
-        document.getElementById('text2prob').innerText=`
-        probability: ${probClassify}
-        `;
+        // document.getElementById('text2prob').innerText=`
+        // probability: ${probClassify}
+        // `;
       }
       await tf.nextFrame()
       wait(700)
