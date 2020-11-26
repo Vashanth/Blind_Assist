@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        Blind Assist
+        </title>
+    </head>
+<body> 
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+
+<center>
+        <p id="status" style="color:black;width:100px;height:100px">Start</p>
+        <video id="video" 
+        autoplay 
+        muted 
+        playsinline 
+        width="800"
+        height="800">
+        </video>
+</center>
+
+    <canvas id="canvas" 
+    width="800" 
+    height="800" 
+    style="display:none">
+    </canvas>
+
+    <script>
+    function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
+    }
+    }
+
+    async function app()
+    {
+        const video = document.getElementById('video')
+        const canvas = document.getElementById('canvas')
+        const context = canvas.getContext('2d')
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio:false,
+            video: {
+                facingMode : 'environment'
+            }
+        })
+
+        video.srcObject = stream
+        let coco = await  cocoSsd.load()
+        const status = document.getElementById("status") 
+        console.dir(status)
+        while(true)
+        {
+            context.drawImage(video,0,0,500,500)
+            let predictions = await coco.detect(canvas)
+            let str=""
+            for(let i=0;i<predictions.length;i++)
+            str+=predictions[i].class+", "
+            status.innerText = str
+            wait(3000)
+            await tf.nextFrame()
+        }
+    }
+    app();
+    </script>
+
+</body>
+</html>
