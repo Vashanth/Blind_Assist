@@ -16,15 +16,15 @@
         autoplay 
         muted 
         playsinline 
-        width="800"
-        height="800">
+        width="250"
+        height="250">
         </video>
 </center>
 
     <canvas id="canvas" 
-    width="800" 
-    height="800" 
-    style="display:none">
+    width="250" 
+    height="250" 
+    >
     </canvas>
 
     <script>
@@ -52,10 +52,70 @@
         video.srcObject = stream
         let coco = await  cocoSsd.load()
         const status = document.getElementById("status") 
-        console.dir(status)
+
         while(true)
         {
-            context.drawImage(video,0,0,500,500)
+            context.drawImage(video,0,0,250,250)
+            var imgData = context.getImageData(0, 0, 250, 250)
+            
+            let r=0,g=0,b=0,n=imgData.data.length
+
+            let ar = Array.from(imgData.data)
+
+            for(let i=0;i<n;i++)
+            if(i%4!=0)
+            ar[i]/=255.0
+
+            for(let i=0;i<n;i+=4)
+            {
+                r+=ar[i]
+                g+=ar[i+1]
+                b+=ar[i+2]
+            }
+
+            let mainMean = (r+g+b)/187500
+            r/=187500
+            g/=187500
+            b/=187500
+
+            let stdDev = 0
+
+            for(let i=0;i<n;i++)
+            {
+                if(i%4!=0)
+                stdDev+=((ar[i]-mainMean)*(ar[i]-mainMean))/187500
+            }
+
+            stdDev = Math.sqrt(stdDev)
+            
+            console.log(mainMean, stdDev)
+            for(let i=0;i<n;i+=4)
+            {
+                ar[i] = (ar[i]-r)/stdDev
+                ar[i+1] = (ar[i+1]-g)/stdDev
+                ar[i+2] = (ar[i+2]-b)/stdDev
+            }
+
+            let max=-100,min=100
+            for(let i=0;i<n;i++)
+            if(i%4!=0)
+            {
+                if(max<ar[i])
+                max=ar[i]
+                if(min>ar[i])
+                min=ar[i]
+            }
+
+            console.log(max,min)
+
+            for(let i=0;i<n;i++)
+            if(i%4!=0)
+            {
+                imgData.data[i] = ((((ar[i] - min)) / (max - min))) * 255
+            }
+
+            context.putImageData(imgData, 0, 0)
+
             let predictions = await coco.detect(canvas)
             let str=""
             for(let i=0;i<predictions.length;i++)
