@@ -94,7 +94,7 @@ async function app()
         context.putImageData(imgData, 0, 0)
         const predictions = await model.classify(canvas)
         let str=predictions[0].className
-        status.innerText = str
+        status.innerText = str + "-" + predictions[0].probability
         speakFun(str)
         wait(1000)
         await tf.nextFrame()
